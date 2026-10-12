@@ -1,6 +1,6 @@
 <div align="center">
 
-# Ian Akiles
+<img src="assets/ian-akiles-logo.png" alt="Ian Akiles" width="480">
 
 ### Desenvolvimento web, sistemas, interfaces técnicas e projetos digitais experimentais
 
