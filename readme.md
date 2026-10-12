@@ -100,7 +100,11 @@ Aplicação em Python para organizar uma lista de compras.
 </div>
 
 ---
+<div align="center">
 
+<img src="assets/final.gif" alt="Animação de encerramento" width="100%">
+
+</div>
 ## Contato
 
 Para conversar sobre projetos, parcerias ou desenvolvimento web, acesse o portfólio:
