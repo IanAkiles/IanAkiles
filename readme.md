@@ -93,18 +93,15 @@ Aplicação em Python para organizar uma lista de compras.
 
 ![Linguagens mais usadas](https://github-readme-stats.vercel.app/api/top-langs/?username=IanAkiles&layout=compact&theme=default&hide_border=true)
 
-<br>
-
-![Grafico de contribuições](https://github-readme-activity-graph.vercel.app/graph?username=IanAkiles&theme=github-compact&hide_border=true)
 
 </div>
 
----
 <div align="center">
 
 <img src="assets/final.gif" alt="Animação de encerramento" width="100%">
 
 </div>
+
 ## Contato
 
 Para conversar sobre projetos, parcerias ou desenvolvimento web, acesse o portfólio:
