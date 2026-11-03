@@ -1,171 +1,59 @@
-```
-███████████████████████████████████████████████████████████████████████
-█                                                                     █
-█   █████╗ ██╗  ██╗██╗██╗     ███████╗███████╗                        █
-█  ██╔══██╗██║ ██╔╝██║██║     ██╔════╝██╔════╝                        █
-█  ███████║█████╔╝ ██║██║     █████╗  ███████╗                        █
-█  ██╔══██║██╔═██╗ ██║██║     ██╔══╝  ╚════██║                        █
-█  ██║  ██║██║  ██╗██║███████╗███████╗███████║                        █
-█  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚══════╝                        █
-█                                                                     █
-█  IAN AKILES // DESENVOLVEDOR WEB                                    █
-█  SAAS. AUTOMAÇÃO. IA.                                               █
-█  SEM ENFEITE. SÓ SISTEMA QUE FUNCIONA.                              █
-█                                                                     █
-███████████████████████████████████████████████████████████████████████
-```
+<div align="center">
 
-<p>
-  <img src="https://img.shields.io/badge/STATUS-FOCANDO-FFE600?style=for-the-badge&labelColor=000000&color=FFE600" alt="status" />
-  <img src="https://img.shields.io/badge/FOCO-SAAS-000000?style=for-the-badge&labelColor=FFFFFF&color=000000" alt="foco" />
-  <img src="https://img.shields.io/badge/FOCO-AUTOMA%C3%87%C3%83O-000000?style=for-the-badge&labelColor=FFFFFF&color=000000" alt="foco" />
-  <img src="https://img.shields.io/badge/FOCO-IA-000000?style=for-the-badge&labelColor=FFFFFF&color=000000" alt="foco" />
-</p>
+<img src="assets/banner.svg" alt="IAN AKILES — Desenvolvedor Web, SaaS, Automação e IA" width="100%" />
 
----
+</div>
 
-## [ 01 ] QUEM
+<img src="assets/divider.svg" alt="" width="100%" />
 
-```
-> NOME ........ IAN AKILES
-> FUNÇÃO ...... DESENVOLVEDOR WEB
-> FAZ ......... PRODUTOS DIGITAIS E SISTEMAS PARA RESOLVER PROBLEMAS
-> MÉTODO ...... CONSTRUIR. QUEBRAR. CONSERTAR. ENTREGAR.
-> SITE ........ www.ianakiles.com.br
-```
+<img src="assets/sec-01.svg" alt="01 — QUEM" width="100%" />
 
-Não coleciono tutorial. Coleciono coisa que roda.
+<img src="assets/terminal.svg" alt="Ian Akiles. Desenvolvedor Web. Faz produtos digitais e sistemas que resolvem problemas. Método: construir, quebrar, consertar, entregar." width="100%" />
 
----
+> **Não coleciono tutorial. Coleciono coisa que roda.**
 
-## [ 02 ] PROJETOS
-
-> OS QUE MAIS SURPREENDEM. NA ORDEM DO IMPACTO.
+<img src="assets/sec-02.svg" alt="02 — PROJETOS" width="100%" />
 
 <table>
 <tr>
-<td width="50%" valign="top">
-
-### ▓ SAAS
-**SISTEMA COMPLETO PARA BARBEARIA**
-
-Gestão de ponta a ponta. Produto real, não exercício de curso.
-
-`JAVASCRIPT` `SAAS`
-
-**[→ ABRIR REPOSITÓRIO](https://github.com/IanAkiles/SaaS)**
-
+<td width="50%" align="center">
+<a href="https://github.com/IanAkiles/SaaS"><img src="assets/card-saas.svg" alt="SaaS — sistema completo para barbearia (JavaScript)" width="100%" /></a>
 </td>
-<td width="50%" valign="top">
-
-### ▓ REDE-NEURAL-QUÂNTICA
-**SIMULAÇÃO DA ESTRUTURA DE UMA REDE NEURAL QUÂNTICA**
-
-Computação quântica encontra IA. Visualizado direto no navegador.
-
-`HTML` `IA` `SIMULAÇÃO`
-
-**[→ ABRIR REPOSITÓRIO](https://github.com/IanAkiles/Rede-Neural-Quantica)**
-
+<td width="50%" align="center">
+<a href="https://github.com/IanAkiles/Rede-Neural-Quantica"><img src="assets/card-quantica.svg" alt="Rede Neural Quântica — simulação da estrutura de uma rede neural quântica (HTML)" width="100%" /></a>
 </td>
 </tr>
 <tr>
-<td width="50%" valign="top">
-
-### ▓ RELOGIO-DIGITAL-PYTHON
-**RELÓGIO DIGITAL EM PYTHON COM TKINTER**
-
-Interface desktop. Empacotado em `.exe` com PyInstaller. Instala, abre, funciona.
-
-`PYTHON` `TKINTER` `PYINSTALLER`
-
-**[→ ABRIR REPOSITÓRIO](https://github.com/IanAkiles/relogio-digital-python)**
-
+<td width="50%" align="center">
+<a href="https://github.com/IanAkiles/relogio-digital-python"><img src="assets/card-relogio.svg" alt="Relógio Digital — Python com Tkinter, empacotado em .exe com PyInstaller" width="100%" /></a>
 </td>
-<td width="50%" valign="top">
-
-### ▓ GRAFICO_DESPESAS
-**APP DE GRÁFICO DE DESPESAS**
-
-Dinheiro virando gráfico. Você enxerga para onde ele foi.
-
-`PYTHON` `DADOS`
-
-**[→ ABRIR REPOSITÓRIO](https://github.com/IanAkiles/grafico_despesas)**
-
+<td width="50%" align="center">
+<a href="https://github.com/IanAkiles/grafico_despesas"><img src="assets/card-despesas.svg" alt="Gráfico de Despesas — app que transforma gasto em gráfico (Python)" width="100%" /></a>
 </td>
 </tr>
 </table>
 
-```
-+---------------------------------------------------------------------+
-| TAMBÉM NO ARSENAL: Projeto1 (lista de compras em Python)            |
-| → https://github.com/IanAkiles/Projeto1                             |
-+---------------------------------------------------------------------+
-```
+<sub>Também no arsenal: [Projeto1](https://github.com/IanAkiles/Projeto1), uma lista de compras em Python.</sub>
 
----
+<img src="assets/sec-03.svg" alt="03 — FERRAMENTAS" width="100%" />
 
-## [ 03 ] FERRAMENTAS
+<img src="assets/ferramentas.svg" alt="Python, JavaScript, HTML5, CSS3, Tkinter, PyInstaller, Git e GitHub. Áreas de ataque: Web, SaaS, Automação, IA e Desktop." width="100%" />
 
-```
-+---------------------------------------------------------------------+
-| O QUE EU USO. O QUE EU CONHEÇO. O QUE EU ENTREGO.                   |
-+---------------------------------------------------------------------+
-```
+<img src="assets/sec-04.svg" alt="04 — MANIFESTO" width="100%" />
 
-**LINGUAGENS**
+<img src="assets/manifesto.svg" alt="1. Funcionar vence parecer bonito. 2. Se repete, automatiza. 3. Se é grande, quebra em pedaços. 4. Protótipo feio que roda é melhor que ideia perfeita no papel. 5. Problema real é melhor que projeto de vitrine." width="100%" />
 
-<p>
-  <img src="https://img.shields.io/badge/PYTHON-000000?style=for-the-badge&logo=python&logoColor=FFE600" alt="Python" />
-  <img src="https://img.shields.io/badge/JAVASCRIPT-000000?style=for-the-badge&logo=javascript&logoColor=FFE600" alt="JavaScript" />
-  <img src="https://img.shields.io/badge/HTML5-000000?style=for-the-badge&logo=html5&logoColor=FFE600" alt="HTML5" />
-  <img src="https://img.shields.io/badge/CSS3-000000?style=for-the-badge&logo=css3&logoColor=FFE600" alt="CSS3" />
-</p>
+<img src="assets/sec-05.svg" alt="05 — CONTATO" width="100%" />
 
-**DESKTOP E EMPACOTAMENTO**
+<table>
+<tr>
+<td width="50%" align="center">
+<a href="https://www.ianakiles.com.br"><img src="assets/btn-site.svg" alt="Site — www.ianakiles.com.br" width="100%" /></a>
+</td>
+<td width="50%" align="center">
+<a href="https://github.com/IanAkiles"><img src="assets/btn-github.svg" alt="GitHub — github.com/IanAkiles" width="100%" /></a>
+</td>
+</tr>
+</table>
 
-<p>
-  <img src="https://img.shields.io/badge/TKINTER-000000?style=for-the-badge&logo=python&logoColor=FFE600" alt="Tkinter" />
-  <img src="https://img.shields.io/badge/PYINSTALLER-000000?style=for-the-badge&logo=python&logoColor=FFE600" alt="PyInstaller" />
-</p>
-
-**VERSIONAMENTO**
-
-<p>
-  <img src="https://img.shields.io/badge/GIT-000000?style=for-the-badge&logo=git&logoColor=FFE600" alt="Git" />
-  <img src="https://img.shields.io/badge/GITHUB-000000?style=for-the-badge&logo=github&logoColor=FFE600" alt="GitHub" />
-</p>
-
-**ÁREAS DE ATAQUE**
-
-```
-[ WEB ]  [ SAAS ]  [ AUTOMAÇÃO ]  [ IA ]  [ DESKTOP ]
-```
-
----
-
-## [ 04 ] MANIFESTO
-
-```
-1. FUNCIONAR VENCE PARECER BONITO.
-2. SE REPETE, AUTOMATIZA.
-3. SE É GRANDE, QUEBRA EM PEDAÇOS.
-4. PROTÓTIPO FEIO QUE RODA > IDEIA PERFEITA NO PAPEL.
-5. PROBLEMA REAL > PROJETO DE VITRINE.
-```
-
----
-
-## [ 05 ] CONTATO
-
-<p>
-  <a href="https://www.ianakiles.com.br"><img src="https://img.shields.io/badge/SITE-www.ianakiles.com.br-FFE600?style=for-the-badge&labelColor=000000" alt="Site" /></a>
-  <a href="https://github.com/IanAkiles"><img src="https://img.shields.io/badge/GITHUB-IanAkiles-FFFFFF?style=for-the-badge&logo=github&logoColor=white&labelColor=000000" alt="GitHub" /></a>
-</p>
-
-```
-███████████████████████████████████████████████████████████████████████
-█  FIM DO ARQUIVO. VÁ CONSTRUIR ALGUMA COISA.                         █
-███████████████████████████████████████████████████████████████████████
-```
+<img src="assets/footer.svg" alt="Vá construir alguma coisa." width="100%" />
