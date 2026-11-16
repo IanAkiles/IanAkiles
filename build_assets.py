@@ -6,8 +6,8 @@ então o resultado renderiza igual em qualquer lugar, inclusive no <img> do GitH
 
 Requisitos:
   pip install fonttools uharfbuzz
-  npm install @fontsource/jetbrains-mono        (ajuste FONTS abaixo para a pasta files/)
-  Inter Display (.otf) instalada                (ajuste INTER abaixo)
+  npm install @fontsource/jetbrains-mono        (ou defina JETBRAINS_MONO_DIR para files/)
+  Inter Display (.otf) instalada                (ou defina INTER_DISPLAY_DIR)
 Edite os textos nas funções (banner, terminal, cards...) e rode:
   python3 build_assets.py <pasta_de_saida>      -> copie os .svg para IanAkiles/assets/
 """
@@ -18,17 +18,17 @@ from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-FONTS = os.path.join(HERE, "..", "fonts", "node_modules", "@fontsource", "jetbrains-mono", "files")
-INTER = "/usr/share/fonts/opentype/inter"
+FONTS = os.environ.get("JETBRAINS_MONO_DIR", os.path.join(HERE, "..", "fonts", "node_modules", "@fontsource", "jetbrains-mono", "files"))
+INTER = os.environ.get("INTER_DISPLAY_DIR", "/usr/share/fonts/opentype/inter")
 
 # ───────────────────────── design tokens ─────────────────────────
-INK, INK2 = "#0A0A0A", "#151515"
+INK, INK2 = "#15191C", "#202629"
 PAPER, PAPER2 = "#F2F0EA", "#E3E0D6"
-ACC = "#FFE600"
-MUTE_P = "#66645D"      # texto secundário sobre papel
-MUTE_I = "#9A978E"      # texto secundário sobre tinta
-DIM_I = "#4B4A45"       # texto terciário sobre tinta
-HAIR_I = "#2E2E2C"      # fio sobre tinta
+ACC = "#E5D66A"
+MUTE_P = "#565D5E"      # texto secundário sobre papel
+MUTE_I = "#AFB6B5"      # texto secundário sobre tinta
+DIM_I = "#858D8E"       # texto terciário sobre tinta
+HAIR_I = "#394247"      # fio sobre tinta
 SQ2 = math.sqrt(2)
 
 
@@ -155,6 +155,10 @@ def hazard(uid, x, y, w, h, dur=2.4, stripe=10, reverse=False):
 
 
 def SVG(w, h, body, title, defs=""):
+    # O conteúdo permanece visível desde o primeiro quadro, sem ciclos que interrompam a leitura.
+    import re
+    body = re.sub(r'<animate(?:Transform|Motion)?\b[^>]*/>', '', body)
+    defs = re.sub(r'<animate(?:Transform|Motion)?\b[^>]*/>', '', defs)
     title = title.replace("&", "&amp;").replace("<", "&lt;")
     return (f'<?xml version="1.0" encoding="UTF-8"?>\n'
             f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -172,7 +176,7 @@ def banner():
     W, H = 1200, 420
     defs, b = [], []
     defs.append(f'<pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">'
-                f'<circle cx="12" cy="12" r="1.2" fill="{INK}" opacity="0.17"/></pattern>')
+                f'<circle cx="12" cy="12" r="1.2" fill="{INK}" opacity="0.055"/></pattern>')
     defs.append('<clipPath id="tk"><rect x="0" y="0" width="1200" height="48"/></clipPath>')
 
     b.append(R(0, 0, W, H, PAPER))
@@ -189,10 +193,10 @@ def banner():
     unit_w += 0.06 * 17
     defs.append(f'<g id="tu">{unit_d}</g>')
     reps = int(math.ceil(W / unit_w)) + 2
-    uses = "".join(f'<use xlink:href="#tu" href="#tu" x="{n(i * unit_w)}"/>' for i in range(reps))
+    uses = '<use xlink:href="#tu" href="#tu" x="32"/>'
     b.append(f'<g clip-path="url(#tk)"><g><animateTransform attributeName="transform" type="translate" '
              f'from="0 0" to="{n(-unit_w)} 0" dur="{n(unit_w / 55)}s" repeatCount="indefinite"/>{uses}</g></g>')
-    b.append(R(0, 48, W, 4, ACC))
+    b.append(R(0, 48, W, 2, ACC))
 
     # ── marcas de registro (cantos)
     for cx, cy in [(30, 80), (1170, 80), (30, 366), (1170, 366)]:
@@ -210,7 +214,6 @@ def banner():
     # ── AKILES gigante
     size = DISP.fit("AKILES", 744, -0.008)
     base = 300
-    b.append(T(DISP, "AKILES", size, 68, base + 8, ACC, tr=-0.008))
     b.append(T(DISP, "AKILES", size, 60, base, INK, tr=-0.008))
 
     # ── faixa de subtítulo
@@ -227,8 +230,8 @@ def banner():
 
     # ── painel de status
     px, py, pw, ph = 872, 96, 268, 214
-    b.append(R(px + 10, py + 10, pw, ph, INK))
-    b.append(BOX(px, py, pw, ph, PAPER, INK, 3))
+    b.append(R(px + 4, py + 4, pw, ph, HAIR_I))
+    b.append(BOX(px, py, pw, ph, PAPER, INK, 2))
     b.append(R(px, py, pw, 40, INK))
     b.append(T(M8, "STATUS ::", 15, px + 18, py + 26, ACC, tr=0.1))
     b.append(f'<circle cx="{px + pw - 24}" cy="{py + 20}" r="6.5" fill="{ACC}">{BLINK(1.2)}</circle>')
@@ -241,7 +244,7 @@ def banner():
         x = bx + i * 19
         b.append(BOX(x, by, 15, 22, PAPER, INK, 2))
         t0 = 0.08 + i * 0.065
-        b.append(f'<rect x="{n(x + 2)}" y="{n(by + 2)}" width="11" height="18" fill="{ACC}" opacity="0">'
+        b.append(f'<rect x="{n(x + 2)}" y="{n(by + 2)}" width="11" height="18" fill="{ACC}" opacity="{1 if i < 7 else 0}">'
                  f'<animate attributeName="opacity" values="0;1;1" keyTimes="0;{t0:.3f};1" calcMode="discrete" '
                  f'dur="5s" repeatCount="indefinite"/></rect>')
 
@@ -250,9 +253,9 @@ def banner():
         major = i % 60 == 0
         b.append(LINE(i, 388, i, 388 - (14 if major else 7), INK, 1.5 if major else 1,
                       "" if major else ' opacity="0.45"'))
-    hd, hb_ = hazard("hz", 0, 400, W, 20, dur=2.8)
+    hd, hb_ = hazard("hz", 0, 412, W, 8, dur=2.8)
     defs.append(hd); b.append(hb_)
-    b.append(R(0, 396, W, 4, INK))
+    b.append(R(0, 408, W, 2, INK))
 
     return SVG(W, H, "\n".join(b), "IAN AKILES — Desenvolvedor Web, SaaS, Automação e IA", "".join(defs))
 
@@ -260,17 +263,16 @@ def banner():
 # ═════════════════════════ DIVISOR ═════════════════════════
 def divider():
     W, H = 912, 14
-    hd, hb_ = hazard("hd", 0, 4, W, 10, dur=3.0)
-    body = R(0, 0, W, 4, INK) + hb_
-    return SVG(W, H, body, "divisor", hd)
+    body = LINE(0, 7, W, 7, HAIR_I, 1) + R(0, 5, 64, 4, ACC)
+    return SVG(W, H, body, "divisor")
 
 
 # ═════════════════════════ CABEÇALHOS DE SEÇÃO ═════════════════════════
 def section(num, title, total=5):
     W, H = 912, 80
-    b = [R(0, 0, W, 72, INK), R(0, 0, 96, 72, ACC), R(0, 72, W, 4, ACC)]
-    b.append(T(DISP, f"{num:02d}", 44, 48, 51, INK, tr=-0.03, anchor="m"))
-    b.append(T(DISP, title, 36, 128, 49, PAPER, tr=-0.012))
+    b = [R(0, 0, W, 72, INK), R(0, 0, 80, 72, ACC), R(0, 72, W, 1, HAIR_I)]
+    b.append(T(DISP, f"{num:02d}", 40, 40, 50, INK, tr=-0.03, anchor="m"))
+    b.append(T(DISP, title, 36, 108, 49, PAPER, tr=-0.012))
     b.append(T(M7, f"SEC {num:02d}/{total:02d}", 14, W - 28, 32, MUTE_I, tr=0.14, anchor="e"))
     for i in range(total):
         x = W - 28 - total * 12 - (total - 1) * 6 + i * 18
@@ -284,7 +286,7 @@ def section(num, title, total=5):
 # ═════════════════════════ FRASE (substitui o blockquote) ═════════════════════════
 def quote():
     W, H = 912, 112
-    b = [R(10, 10, 900, 98, INK), BOX(0, 0, 900, 98, PAPER, INK, 3), R(0, 0, 96, 98, INK)]
+    b = [R(4, 4, 900, 98, HAIR_I), BOX(0, 0, 900, 98, PAPER, INK, 2), R(0, 0, 96, 98, INK)]
     b.append(T(DISP, "“", 130, 48, 128, ACC, anchor="m"))
     size = 34
     b.append(T(DISP, "NÃO COLECIONO TUTORIAL.", size, 128, 44, INK, tr=-0.02))
@@ -292,7 +294,7 @@ def quote():
     d2, w2 = DISP.path("RODA.", size, 128 + w - 0.02 * size, 84, -0.02)
     hx = 128 + w - 0.02 * size
     b.append(f'<path d="{d}" fill="{INK}"/>')
-    b.append(R(hx - 8, 84 - 30, w2 + 16, 40, ACC))
+    b.append(R(hx - 8, 84 - 30, w2 + 16, 40, PAPER2))
     b.append(f'<path d="{d2}" fill="{INK}"/>')
     b.append(T(M7, "// LEMA", 14, 872, 34, MUTE_P, tr=0.14, anchor="e"))
     return SVG(W, H, "\n".join(b), "Não coleciono tutorial. Coleciono coisa que roda.")
@@ -303,7 +305,7 @@ def terminal():
     W, H = 912, 330
     FS, CW = 22, 22 * 0.6
     defs, b = [], []
-    b.append(R(10, 10, W - 12, H - 12, ACC))
+    b.append(R(4, 4, W - 12, H - 12, HAIR_I))
     b.append(R(0, 0, W - 12, H - 12, INK))
     ww = W - 12
     b.append(R(0, 0, ww, 46, INK2))
@@ -316,7 +318,7 @@ def terminal():
 
     rows = [("NOME", "IAN AKILES", PAPER), ("FUNÇÃO", "DESENVOLVEDOR WEB", ACC),
             ("FAZ", "PRODUTOS DIGITAIS E SISTEMAS", PAPER), ("", "QUE RESOLVEM PROBLEMAS", PAPER),
-            ("MÉTODO", "CONSTRUIR. QUEBRAR. CONSERTAR. ENTREGAR.", ACC), ("SITE", "www.ianakiles.com.br", PAPER)]
+            ("MÉTODO", "CONSTRUIR. QUEBRAR. CONSERTAR. ENTREGAR.", PAPER), ("SITE", "www.ianakiles.com.br", PAPER)]
     COL = 15
     T_LOOP, t = 16.0, 0.5
     for i, (k, v, vc) in enumerate(rows):
@@ -358,18 +360,18 @@ def card_frame(idx, title_lines, tsize, desc_lines, tags, illo, defs_extra="", t
     W, H = 620, 380
     defs, b = [defs_extra], []
     CW_, CH_ = 600, 360
-    b.append(R(12, 12, CW_, CH_, INK))
+    b.append(R(5, 5, CW_, CH_, HAIR_I))
     b.append(R(0, 0, CW_, CH_, PAPER))
     # grid sutil
     defs.append(f'<pattern id="gp" width="20" height="20" patternUnits="userSpaceOnUse">'
-                f'<circle cx="10" cy="10" r="0.9" fill="{INK}" opacity="0.14"/></pattern>')
+                f'<circle cx="10" cy="10" r="0.9" fill="{INK}" opacity="0.055"/></pattern>')
     b.append(R(0, 46, CW_, CH_ - 46, "url(#gp)"))
     # header
     b.append(R(0, 0, CW_, 46, INK))
     b.append(T(M8, f"PROJETO_{idx:02d}", 17, 24, 30, ACC, tr=0.06))
-    b.append(R(446, 0, 154, 46, ACC))
-    b.append(T(M8, "ABRIR", 16, 466, 30, INK, tr=0.08))
-    b.append(f'<g>{ARROW(540, 23, 26, 8, INK, 3.5)}<animateTransform attributeName="transform" type="translate" '
+    b.append(R(446, 0, 154, 46, INK2))
+    b.append(T(M8, "ABRIR", 16, 466, 30, PAPER, tr=0.08))
+    b.append(f'<g>{ARROW(540, 23, 26, 8, ACC, 3.5)}<animateTransform attributeName="transform" type="translate" '
              f'values="0 0;5 0;0 0" dur="1.8s" repeatCount="indefinite"/></g>')
     # título
     tb = title_base or (110 if len(title_lines) > 1 else 128)
@@ -378,7 +380,7 @@ def card_frame(idx, title_lines, tsize, desc_lines, tags, illo, defs_extra="", t
         b.append(T(DISP, ln, tsize, 24, tb + i * lh, INK, tr=-0.03))
     # régua + descrição
     ry = 226
-    b.append(R(24, ry, 64, 8, ACC, INK, 2))
+    b.append(R(24, ry, 40, 3, MUTE_P))
     for i, ln in enumerate(desc_lines):
         b.append(T(M7, ln, 15, 24, 262 + i * 24, INK, tr=0.01))
     # tags
@@ -386,8 +388,7 @@ def card_frame(idx, title_lines, tsize, desc_lines, tags, illo, defs_extra="", t
     for i, tg in enumerate(tags):
         tw = M8.width(tg, 14, 0.05)
         cw = tw + 28
-        b.append(R(x + 3, 303 + 3, cw, 32, INK))
-        b.append(BOX(x, 303, cw, 32, ACC if i == 0 else PAPER, INK, 2.5))
+        b.append(BOX(x, 303, cw, 32, PAPER2 if i == 0 else PAPER, INK, 1.5))
         b.append(T(M8, tg, 14, x + 14, 324, INK, tr=0.05))
         x += cw + 14
         warn(x < 580, f"tags overflow card {idx}: {x}")
@@ -395,7 +396,7 @@ def card_frame(idx, title_lines, tsize, desc_lines, tags, illo, defs_extra="", t
     b.append(R(302, 66, 2, 218, INK, extra=' opacity="0.12"'))
     # ilustração (região 316..576 x 64..336)
     b.append(f'<g transform="translate(320 66)">{illo}</g>')
-    b.append(BOX(0, 0, CW_, CH_, "none", INK, 3))
+    b.append(BOX(0, 0, CW_, CH_, "none", INK, 2))
     return SVG(W, H, "\n".join(b), "", "".join(defs))
 
 
@@ -584,7 +585,7 @@ def ferramentas():
     items = [("01 / LINGUAGEM", "PYTHON"), ("02 / LINGUAGEM", "JAVASCRIPT"), ("03 / ESTRUTURA", "HTML5"),
              ("04 / ESTILO", "CSS3"), ("05 / INTERFACE DESKTOP", "TKINTER"), ("06 / EMPACOTA .EXE", "PYINSTALLER"),
              ("07 / VERSIONAMENTO", "GIT"), ("08 / CÓDIGO NA NUVEM", "GITHUB")]
-    fills = [ACC, PAPER, INK, PAPER, INK, PAPER, INK, ACC]
+    fills = [PAPER, PAPER, INK, PAPER, INK, PAPER, INK, PAPER]
     tw, th = 225, 128
     b = []
     for i, (lab, name) in enumerate(items):
@@ -608,14 +609,14 @@ def ferramentas():
     # barra de áreas
     by = th * 2 + 3 + 24
     bh = 62
-    b.append(R(10, by + 10, tw * 4 + 3, bh, ACC))
+    b.append(R(4, by + 4, tw * 4 + 3, bh, HAIR_I))
     b.append(R(0, by, tw * 4 + 3, bh, INK))
-    b.append(T(M8, "ÁREAS DE ATAQUE:", 15, 22, by + 36, ACC, tr=0.08))
+    b.append(T(M8, "ÁREAS DE ATAQUE:", 15, 22, by + 36, MUTE_I, tr=0.08))
     x = 22 + M8.width("ÁREAS DE ATAQUE:", 15, 0.08) + 26
     for ch in ["WEB", "SAAS", "AUTOMAÇÃO", "IA", "DESKTOP"]:
         cw = M8.width(ch, 15, 0.06) + 32
-        b.append(R(x, by + 15, cw, 32, PAPER))
-        b.append(T(M8, ch, 15, x + 16, by + 37, INK, tr=0.06))
+        b.append(R(x, by + 15, cw, 32, INK2))
+        b.append(T(M8, ch, 15, x + 16, by + 37, PAPER, tr=0.06))
         x += cw + 12
     warn(x < tw * 4, f"areas overflow {x}")
     return SVG(W, by + bh + 12, "\n".join(b),
@@ -638,10 +639,9 @@ def manifesto():
     for i, r in enumerate(rows):
         y = i * (rh + gap)
         g = []
-        g.append(R(8, y + 8, 892, rh, INK))
-        g.append(BOX(0, y, 892, rh, PAPER if i % 2 else ACC, INK, 3))
+        g.append(BOX(0, y, 892, rh, PAPER, INK, 2))
         g.append(R(0, y, 84, rh, INK))
-        g.append(T(DISP, str(i + 1), 40, 42, y + rh / 2 + DISP.cap(40) / 2, ACC if i % 2 == 0 else PAPER, tr=-0.02, anchor="m"))
+        g.append(T(DISP, str(i + 1), 40, 42, y + rh / 2 + DISP.cap(40) / 2, ACC, tr=-0.02, anchor="m"))
         x = 112
         base = y + rh / 2 + DISPX.cap(size) / 2
         for seg in r:
@@ -676,9 +676,9 @@ def manifesto():
 def button(kind):
     W, H = 440, 100
     site = kind == "site"
-    fill, fg, shadow, cap, capfg = (ACC, INK, INK, INK, ACC) if site else (INK, PAPER, ACC, ACC, INK)
+    fill, fg, shadow, cap, capfg = (PAPER, INK, HAIR_I, INK, ACC) if site else (INK, PAPER, HAIR_I, INK2, ACC)
     name, url = ("SITE", "www.ianakiles.com.br") if site else ("GITHUB", "github.com/IanAkiles")
-    b = [R(10, 10, 426, 86, shadow), BOX(0, 0, 426, 86, fill, INK, 3)]
+    b = [R(4, 4, 426, 86, shadow), BOX(0, 0, 426, 86, fill, INK, 2)]
     b.append(R(338, 0, 88, 86, cap))
     b.append(R(335, 0, 3, 86, INK))
     b.append(T(DISP, name, 40, 26, 54, fg, tr=-0.025))
@@ -696,8 +696,8 @@ def footer():
     W, H = 912, 150
     defs, b = [], []
     b.append(R(0, 0, W, H, INK))
-    d1, b1 = hazard("fa", 0, 0, W, 14, dur=2.6)
-    d2, b2 = hazard("fb", 0, H - 14, W, 14, dur=2.6, reverse=True)
+    d1, b1 = hazard("fa", 0, 0, W, 5, dur=2.6)
+    d2, b2 = hazard("fb", 0, H - 5, W, 5, dur=2.6, reverse=True)
     defs += [d1, d2]
     b += [b1, b2]
     txt = "VÁ CONSTRUIR ALGUMA COISA."

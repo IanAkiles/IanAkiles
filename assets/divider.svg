@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="912" height="14" viewBox="0 0 912 14" role="img">
 <title>divisor</title>
-<defs><pattern id="hdp" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="20" fill="#0A0A0A"/><rect x="10" width="10" height="20" fill="#FFE600"/></pattern><clipPath id="hdc"><rect x="0" y="4" width="912" height="10"/></clipPath></defs>
-<rect x="0" y="0" width="912" height="4" fill="#0A0A0A"/><g clip-path="url(#hdc)"><g><animateTransform attributeName="transform" type="translate" from="0 0" to="28.28 0" dur="3.0s" repeatCount="indefinite"/><rect x="-56.57" y="4" width="1025.14" height="10" fill="url(#hdp)"/></g></g>
+<defs></defs>
+<line x1="0" y1="7" x2="912" y2="7" stroke="#394247" stroke-width="1"/><rect x="0" y="5" width="64" height="4" fill="#E5D66A"/>
 </svg>
