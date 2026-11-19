@@ -33,7 +33,7 @@
 </tr>
 </table>
 
-<p align="center"><sub>Também no arsenal: <a href="https://github.com/IanAkiles/Projeto1">Projeto1</a>, uma lista de compras em Python.</sub></p>
+<p align="center"><sub>Também no arsenal: <a href="https://github.com/IanAkiles/frame-studio">Frame Studio</a>, um estúdio local para criar variações de vídeo.</sub></p>
 
 <img src="assets/sec-03.svg" alt="03 — FERRAMENTAS" width="100%" />
 
